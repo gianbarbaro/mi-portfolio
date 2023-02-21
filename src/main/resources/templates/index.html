@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="compu.png">
+    <title>Gian Luca Barbaro</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="#aboutme">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="#skills">Skills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="#projects">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div id="home">
+        <div>
+            <h1><strong>Gian Luca Barbaro</strong></h1>
+            <h2>Fullstack Developer</h2>
+            <a id="cv" href="CV - Gian Luca Barbaro.pdf">Descargar CV</a>
+        </div>
+    </div>
+
+    <div id="aboutme">
+        <div class="block1">
+            <h3><strong>About me:</strong></h3>
+            <h5>Mi Nombre es Gian Luca Barbaro, soy Full Stack Developer y estudiante de Diseño de Videojuegos.</h5>
+            <p>
+                Actualmente resido en la provincia de Misiones, Argentina. <br>
+                Este último tiempo me dediqué a aprender nuevas tecnologías, mejorando mis habilidades para así poder llevar a cabo pequeños proyectos en donde plasmar lo aprendido, 
+                buscando la manera de seguir creciendo profesionalmente y lograr hacer contribuciones valiosas en mi lugar de trabajo. <br>
+                Cuento con experiencia en la creación de websites con Java y Spring como framework de desarrollo. <br>
+            </p>
+        </div>
+    </div>
+
+    <div id="skills">
+        <div class="block2">
+            <h3 class="head"><strong>Skills</strong></h3>
+            <div>
+                <ul>
+                    <li>Java</li>
+                    <li>MySQL</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Git</li>
+                    <li>Github</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="projects">
+        <div class="block1">
+            <h3 class="head"><strong>Projects</strong></h3>
+            <div class="content">
+                <img src="project-prueba.jpg" alt="loading project...">
+                <div>
+                    <h4 class="text-center m-5">Nombre del proyecto</h4>
+                    <p class="m-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium eius cumque ut soluta veritatis ratione aspernatur aliquid recusandae, voluptates incidunt, corrupti fuga dolor, voluptate aut porro minima. Vel, quo sequi?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact">
+        <div class="block2">
+            <h3 class="head mb-5"><strong>Contact me</strong></h3>
+            <form action="">
+                <div class="mb-3">
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Your email">
+                </div>
+                <div class="mb-3">
+                    <textarea id="exampleFormControlTextarea1" placeholder="Your message"></textarea>
+                </div>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 social">
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/gian-luca-barbaro/"><img src="linkedin.png" alt="linkedin"></a></li>
+                        <li><a href="https://github.com/gianbarbaro"><img src="github.png" alt="github"></a></li>
+                        <li><a href="https://mail.google.com/"><img src="gmail.png" alt="email"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
