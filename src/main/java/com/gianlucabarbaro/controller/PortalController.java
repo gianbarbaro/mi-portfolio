@@ -19,4 +19,9 @@ public class PortalController {
     public String admin(ModelMap model) {
         return "admin.html";
     }
+    
+    @GetMapping("/admin-settings")
+    public String adminSettings(ModelMap model) {
+        return "admin-settings.html";
+    }
 }

@@ -79,6 +79,17 @@ public class ProjectService {
         }
     }
     
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(String id) throws Exception {
+        Optional<Project> respuesta = projectRepository.findById(id);
+        if (respuesta.isPresent()) {
+            Project project = respuesta.get();
+            projectRepository.delete(project);
+        } else {
+            throw new Exception("Error al borrar el proyecto");
+        }
+    }
+    
     @Transactional(readOnly = true)
     public Project findById(String id) throws Exception {
         Optional<Project> respuesta = projectRepository.findById(id);

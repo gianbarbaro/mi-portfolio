@@ -50,6 +50,17 @@ public class SkillService {
         }
     }
     
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(String id) throws Exception {
+        Optional<Skill> respuesta = skillRepository.findById(id);
+        if (respuesta.isPresent()) {
+            Skill skill = respuesta.get();
+            skillRepository.delete(skill);
+        } else {
+            throw new Exception("Error al borrar la skill");
+        }
+    }
+    
     @Transactional(readOnly = true)
     public Skill findById(String id) throws Exception {
         Optional<Skill> respuesta = skillRepository.findById(id);

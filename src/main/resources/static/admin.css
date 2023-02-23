@@ -3,6 +3,37 @@ body {
     font-family: 'Play', sans-serif;
 }
 
+header {
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1%;
+}
+
+#navbar {
+    margin-left: 90%;
+}
+
+.navbar-brand {
+    color: white;
+    transition: all 0.5s ease;
+}
+
+.nav-item {
+    margin: 0 1% 0;
+}
+
+.nav-item a:hover {
+    padding: 5px 10px;
+    background: rgba(0, 255, 133, 1);
+    color: rgba(29, 29, 29, 1);
+    border-radius: 15px;
+}
+
+#edit-container {
+    display: flex;
+}
+
 .head {
     text-align: center;
     padding-bottom: 1%;
@@ -21,7 +52,7 @@ body {
     margin: 0 38% 0;
 }
 
-#login button {
+#login button, button {
     background: rgba(0, 255, 133, 1);
     color: rgb(63, 53, 53);
     border: none;
@@ -30,7 +61,7 @@ body {
     width: 100%;
 }
 
-#login button:hover {
+#login button:hover, button:hover {
     transform: scale(1.05);
 }
 
@@ -38,4 +69,160 @@ body {
     background: rgba(29, 29, 29, 1);
     color: white;
     border: none
+}
+
+#aboutme, #cv {
+    width: 30%;
+    margin: 0 9% 0;
+}
+
+#aboutme .head, #cv .head, #skills .head, #projects .head {
+    text-align: start;
+    padding: 0;
+    border-bottom: 2px solid rgb(0, 255, 133);
+    max-width: 100%;
+    margin: 0;
+}
+
+h3, h5, label {
+    color: white;
+}
+
+h5 {
+    margin: 0.5rem 1rem 0;
+}
+
+#skills, #projects {
+    margin: 5% 10% 0;
+}
+
+#list button {
+    margin-left: 2%;
+}
+
+#addskill {
+    margin-left: 80%;
+}
+
+#addproject {
+    margin-left: 74%;
+}
+
+#addskill .btn-primary, #addproject .btn-primary {
+    background: rgb(0, 255, 133);
+    color: rgba(29, 29, 29, 1);
+    border: none;
+}
+
+#addskill label, #addproject label {
+    color: rgba(29, 29, 29, 1);
+}
+
+@media screen and (max-width: 1024px) {
+    #addskill {
+        margin-left: 74%;
+    }
+    
+    #addproject {
+        margin-left: 67%;
+    }
+}
+
+@media screen and (max-width: 912px) {
+    #navbar {
+        margin-left: 87%;
+    }
+
+    #addskill {
+        margin-left: 71%;
+    }
+    
+    #addproject {
+        margin-left: 63%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #addskill {
+        margin-left: 66%;
+    }
+    
+    #addproject {
+        margin-left: 56%;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    #navbar {
+        margin-left: 80%;
+    }
+
+    #edit-container {
+        display: block;
+    }
+
+    #aboutme, #cv {
+        width: 75%;
+        margin: 0 9% 5%;
+    }
+
+    #addskill {
+        margin-left: 52%;
+    }
+    
+    #addproject {
+        margin-left: 40%;
+    }
+
+    .modal-content {
+        width: 80%;
+        margin: 10% 10% 0;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    #navbar {
+        margin-left: 75%;
+    }
+
+    #addskill {
+        margin-left: 38%;
+    }
+    
+    #addproject {
+        margin-left: 22%;
+    }
+}
+
+@media screen and (max-width: 393px) {
+    #navbar {
+        margin-left: 72%;
+    }
+
+    #addskill {
+        margin-left: 35%;
+    }
+    
+    #addproject {
+        margin-left: 18%;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    #navbar {
+        margin-left: 62%;
+    }
+
+    #aboutme, #cv {
+        width: 80%;
+        margin: 0 1% 10%;
+    }
+
+    #addskill {
+        margin-left: 54%;
+    }
+    
+    #addproject {
+        margin-left: 147%;
+    }
 }
