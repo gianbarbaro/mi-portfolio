@@ -2,6 +2,7 @@
 package com.gianlucabarbaro.services;
 
 import com.gianlucabarbaro.entities.Skill;
+import com.gianlucabarbaro.entities.Usuario;
 import com.gianlucabarbaro.repositories.SkillRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,11 @@ public class SkillService {
     @Autowired
     private SkillRepository skillRepository;
     
+    @Autowired
+    private UsuarioService usuarioService;
+    
     @Transactional(rollbackFor = {Exception.class})
-    public Skill save(String skill_name) throws Exception {
+    public Skill save(String skill_name, String idUser) throws Exception {
         
         if (skill_name == null || skill_name.isEmpty()) {
             throw new Exception("Debe ingresar el nombre de la skill que desea agregar");
@@ -25,6 +29,9 @@ public class SkillService {
         
         skill.setSkill_name(skill_name);
         skill.setActive(true);
+        
+        Usuario user = usuarioService.findById(idUser);
+        user.getSkills().add(skill);
         
         return skillRepository.save(skill);
     }
@@ -46,7 +53,7 @@ public class SkillService {
             
             skillRepository.save(skill);
         } else {
-            throw new Exception("Ha ocurrido un error al tratar de modificar");
+            throw new Exception("Error al tratar de modificar");
         }
     }
     
@@ -57,7 +64,7 @@ public class SkillService {
             Skill skill = respuesta.get();
             skillRepository.delete(skill);
         } else {
-            throw new Exception("Error al borrar la skill");
+            throw new Exception("Error al tratar borrar la skill");
         }
     }
     
@@ -79,7 +86,7 @@ public class SkillService {
             skill.setActive(true);
             return skillRepository.save(skill);
         } else {
-            throw new Exception("No se pudo encontrar la skill");
+            throw new Exception("No se pudo realizar la operacion");
         }
     }
     
@@ -91,7 +98,7 @@ public class SkillService {
             skill.setActive(false);
             return skillRepository.save(skill);
         } else {
-            throw new Exception("No se pudo encontrar la skill");
+            throw new Exception("No se pudo realizar la operacion");
         }
     }
 }

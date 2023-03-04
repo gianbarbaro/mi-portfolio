@@ -11,7 +11,7 @@ header {
 }
 
 #navbar {
-    margin-left: 90%;
+    margin-left: 85%;
 }
 
 .navbar-brand {
@@ -44,7 +44,7 @@ header {
 
 #login h3 {
     color: white;
-    margin-top: 15%;
+    margin-top: 5%;
 }
 
 #login form {
@@ -96,8 +96,8 @@ h5 {
     margin: 5% 10% 0;
 }
 
-#list button {
-    margin-left: 2%;
+#list a {
+    margin-left: 5%;
 }
 
 #addskill {
@@ -116,6 +116,12 @@ h5 {
 
 #addskill label, #addproject label {
     color: rgba(29, 29, 29, 1);
+}
+
+.alert-danger, .alert-success {
+    width: 22%;
+    text-align: center;
+    margin: 0 39% 0;
 }
 
 @media screen and (max-width: 1024px) {

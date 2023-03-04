@@ -15,16 +15,16 @@ public class About implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
-    private String main_content;
+    private String mainContent;
     private String content;
 
     public About() {
     }
 
     
-    public About(String id, String main_content, String content) {
+    public About(String id, String mainContent, String content) {
         this.id = id;
-        this.main_content = main_content;
+        this.mainContent = mainContent;
         this.content = content;
     }
 
@@ -36,12 +36,12 @@ public class About implements Serializable {
         this.id = id;
     }
 
-    public String getMain_content() {
-        return main_content;
+    public String getMainContent() {
+        return mainContent;
     }
 
-    public void setMain_content(String main_content) {
-        this.main_content = main_content;
+    public void setMainContent(String mainContent) {
+        this.mainContent = mainContent;
     }
 
     public String getContent() {
@@ -54,7 +54,7 @@ public class About implements Serializable {
 
     @Override
     public String toString() {
-        return "About{" + "id=" + id + ", main_content=" + main_content + ", content=" + content + '}';
+        return "About{" + "id=" + id + ", mainContent=" + mainContent + ", content=" + content + '}';
     }
     
     

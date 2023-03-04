@@ -36,6 +36,12 @@
                         <li class="nav-item">
                             <a class="navbar-brand" href="#contact">Contact</a>
                         </li>
+                        <li th:if="${session.usersession != null}" class="nav-item">
+                            <a class="navbar-brand" th:href="@{/user/admin-settings/} + ${session.usersession.id}">Settings</a>
+                        </li>
+                        <li th:if="${session.usersession != null}" class="nav-item">
+                            <a class="navbar-brand" th:href="@{/logout}">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>

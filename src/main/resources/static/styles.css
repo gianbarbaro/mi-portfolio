@@ -17,10 +17,6 @@ header.active {
     padding: 0.3%;
 }
 
-.container-fluid {
-    margin-left: 65%;
-}
-
 .navbar-brand {
     color: white;
     transition: all 0.5s ease;
@@ -36,27 +32,6 @@ header.active {
     color: rgba(29, 29, 29, 1);
     border-radius: 15px;
 }
-
-/* clases del menu responsive */
-
-.navbar-toggler {
-    margin: 0 80% 0;
-}
-
-.text-bg-dark {
-    background-color: RGBA(29,29,29,var(--bs-bg-opacity,1))!important;
-}
-
-.offcanvas.offcanvas-end {
-    top: 0;
-    right: 0;
-    width: var(--bs-offcanvas-width);
-    border-left: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color);
-    transform: translateX(100%);
-    width: 50%;
-}
-
-/* -------------------------- */
 
 #home {
     background: linear-gradient(rgba(29, 29, 29, 0.5), rgba(29, 29, 29, 0.5)), url(fondo.jpg) no-repeat center center;
@@ -207,10 +182,6 @@ footer img {
 }
 
 @media screen and (max-width: 1200px) {
-    .container-fluid {
-        margin-left: 56%;
-    }
-
     #home div {
         padding-top: 3%;
     }
@@ -268,10 +239,6 @@ footer img {
 }
 
 @media screen and (max-width: 615px) {
-    .navbar-toggler {
-        margin: 0 70% 0;
-    }
-
     #home div {
         padding-top: 22%;
     }
@@ -299,10 +266,6 @@ footer img {
 }
 
 @media screen and (max-width: 540px) {
-    .navbar-toggler {
-        margin: 0 20% 0;
-    }
-
     #home div {
         padding-top: 28%;
     }
@@ -313,10 +276,6 @@ footer img {
 }
 
 @media screen and (max-width: 414px) {
-    .navbar-toggler {
-        margin: 0 10% 0;
-    }
-
     #home div {
         padding-top: 40%;
     }
@@ -381,10 +340,6 @@ footer img {
 }
 
 @media screen and (max-width: 280px) {
-    .navbar-toggler {
-        margin: 0 -5% 0;
-    }
-
     h1 {
         font-size: 35px;
     }

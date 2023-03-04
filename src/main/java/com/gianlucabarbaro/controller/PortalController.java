@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -16,12 +17,21 @@ public class PortalController {
     }
     
     @GetMapping("/admin")
-    public String admin(ModelMap model) {
+    public String login(ModelMap modelo, @RequestParam(required = false) String error, @RequestParam(required = false) String logout) throws Exception {
+
+        if (error != null) {
+            modelo.put("error", "Usuario o clave incorrectos");
+        }
+        if (logout != null) {
+            modelo.put("logout", "Sesión cerrada exitosamente");
+        }
+
         return "admin.html";
     }
     
-    @GetMapping("/admin-settings")
-    public String adminSettings(ModelMap model) {
-        return "admin-settings.html";
+    @GetMapping("/register")
+    public String register(ModelMap model) {
+        return "register.html";
     }
+    
 }

@@ -3,6 +3,7 @@ package com.gianlucabarbaro.services;
 
 import com.gianlucabarbaro.entities.Photo;
 import com.gianlucabarbaro.entities.Project;
+import com.gianlucabarbaro.entities.Usuario;
 import com.gianlucabarbaro.repositories.ProjectRepository;
 import java.util.Date;
 import java.util.Optional;
@@ -20,8 +21,11 @@ public class ProjectService {
     @Autowired
     private PhotoService photoService;
     
+    @Autowired
+    private UsuarioService usuarioService;
+    
     @Transactional(rollbackFor = {Exception.class})
-    public Project save(MultipartFile archivo, String project_name, String description) throws Exception {
+    public Project save(MultipartFile file, String project_name, String description, String idUser) throws Exception {
         
         if (project_name == null || project_name.isEmpty()) {
             throw new Exception("Debe ingresar el titulo del proyecto");
@@ -37,14 +41,17 @@ public class ProjectService {
         project.setUploaded_date(new Date());
         project.setActive(true);
         
-        Photo photo = photoService.save(archivo);
+        Photo photo = photoService.save(file);
         project.setPhoto(photo);
+        
+        Usuario user = usuarioService.findById(idUser);
+        user.getProjects().add(project);
         
         return projectRepository.save(project);
     }
     
     @Transactional(rollbackFor = {Exception.class})
-    public void modify(MultipartFile archivo, String id, String project_name, String description) throws Exception {
+    public void modify(MultipartFile file, String id, String project_name, String description) throws Exception {
         
         if (project_name == null || project_name.isEmpty()) {
             throw new Exception("Debe ingresar el titulo del proyecto");
@@ -62,14 +69,14 @@ public class ProjectService {
             project.setProject_name(project_name);
             project.setDescription(description);
             
-            if (archivo != null) {
+            if (file != null) {
                 String idPhoto = null;
                 if (project.getPhoto()!= null) {
 
                     idPhoto = project.getPhoto().getId();
 
                 }
-                Photo photo = photoService.modify(archivo, idPhoto);
+                Photo photo = photoService.modify(file, idPhoto);
                 project.setPhoto(photo);
             }
             

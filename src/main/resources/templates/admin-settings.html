@@ -8,19 +8,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="admin.css">
-    <link rel="shortcut icon" href="compu.png">
+    <link rel="stylesheet" href="../../admin.css">
+    <link rel="shortcut icon" href="../../compu.png">
     <title>Gian Luca Barbaro</title>
 </head>
 <body>
 
     <header>
         <div id="navbar">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item"><a class="navbar-brand" href="">Cerrar Sesión</a></li>
-            </ul>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="navbar-brand" th:href="@{/}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="navbar-brand" th:href="@{/logout}">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
+
+    <p th:if="${success != null}" th:text="${success}" class="alert alert-success"></p>
+    <p th:if="${error != null}" th:text="${error}" class="alert alert-danger"></p>
 
     <div id="edit-container" class="mt-5 ms-5">
         <div id="aboutme">
@@ -29,14 +46,15 @@
                 <h5>edit</h5>
             </div>
 
-            <form>
+            <form th:action="@{/about/edit}" method="POST">
+                <input type="hidden" th:value="${user.id}" name="id">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Title</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="">
+                  <label for="inputAbout1" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="inputAbout1" name="mainContent" th:value="${user.aboutme.mainContent}">
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Content</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1">
+                  <label for="inputAbout2" class="form-label">Content</label>
+                  <input type="text" class="form-control" id="inputAbout2" name="content" th:value="${user.aboutme.content}">
                 </div>
                 <button type="submit">Save</button>
             </form>
@@ -48,10 +66,11 @@
                 <h5>edit</h5>
             </div>
 
-            <form>
+            <form th:action="@{/pdf/edit}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" th:value="${user.id}" name="id">
                 <div class="mb-3">
-                  <label for="exampleInputEmail2" class="form-label">PDF File</label>
-                  <input type="file" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp">
+                  <label for="inputCV" class="form-label">PDF File</label>
+                  <input type="file" class="form-control" id="inputCV" name="file" th:if="${user.pdf != null}" th:src="${'/pdf/'} + ${user.pdf.id}">
                 </div>
                 <button type="submit">Save</button>
             </form>
@@ -74,15 +93,16 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form th:action="@{/skill/add}" method="POST">
+                                    <input type="hidden" th:value="${user.id}" name="id">
                                     <div class="mb-3">
                                         <label for="recipient-name1" class="col-form-label">Name:</label>
-                                        <input type="text" class="form-control" id="recipient-name1">
+                                        <input type="text" class="form-control" id="recipient-name1" name="skill_name">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary">Save</button>
                             </div>
                         </div>
                     </div>
@@ -94,17 +114,21 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Active</th>
-                    <th scope="col" style="width: 25%;"></th>
+                    <th scope="col" style="width: 20%;"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Mark</td>
-                    <td>true</td>
-                    <td>
-                        <div class="d-flex">
-                            <button type="button" class="btn btn-secondary">Disable</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                <tr th:each="skill:${user.skills}">
+                    <td th:text="${skill.skill_name}"></td>
+                    <td th:text="${skill.active}"></td>
+                    <td th:switch="${skill.active == true}">
+                        <div th:case="${TRUE}" class="d-flex">
+                            <a th:href="@{/skill/disable/} + ${skill.id} + @{/} + ${user.id}" class="btn btn-secondary">Disable</a>
+                            <a th:href="@{/skill/delete/} + ${skill.id} + @{/} + ${user.id}" class="btn btn-danger">Delete</a>
+                        </div>
+                        <div th:case="*" class="d-flex">
+                            <a th:href="@{/skill/enable/} + ${skill.id} + @{/} + ${user.id}" class="btn btn-secondary">Enable</a>
+                            <a th:href="@{/skill/delete/} + ${skill.id} + @{/} + ${user.id}" class="btn btn-danger">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -128,23 +152,24 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form th:action="@{/project/add}" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" th:value="${user.id}" name="id">
                                     <div class="mb-3">
                                         <label for="" class="col-form-label">Name:</label>
-                                        <input type="text" class="form-control" id="">
+                                        <input type="text" class="form-control" id="" name="project_name">
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="col-form-label">Description:</label>
-                                        <input type="text" class="form-control" id="">
+                                        <input type="text" class="form-control" id="" name="description">
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="col-form-label">Picture:</label>
-                                        <input type="file" class="form-control" id="">
+                                        <input type="file" class="form-control" id="" name="file">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary">Save</button>
                             </div>
                         </div>
                     </div>
@@ -159,20 +184,24 @@
                     <th scope="col">Picture</th>
                     <th scope="col">Uploaded date</th>
                     <th scope="col">Active</th>
-                    <th scope="col" style="width: 25%;"></th>
+                    <th scope="col" style="width: 20%;"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>true</td>
-                    <td>
-                        <div class="d-flex">
-                            <button type="button" class="btn btn-secondary">Disable</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                <tr th:each="project:${user.projects}">
+                    <td th:text="${project.project_name}"></td>
+                    <td th:text="${project.description}"></td>
+                    <td th:text="${project.photo.mime}"></td>
+                    <td th:text="${project.uploaded_date}"></td>
+                    <td th:text="${project.active}"></td>
+                    <td th:switch="${project.active == true}">
+                        <div th:case="${TRUE}" class="d-flex">
+                            <a th:href="@{/project/disable/} + ${project.id} + @{/} + ${user.id}" class="btn btn-secondary">Disable</a>
+                            <a th:href="@{/project/delete/} + ${project.id} + @{/} + ${user.id}" class="btn btn-danger">Delete</a>
+                        </div>
+                        <div th:case="*" class="d-flex">
+                            <a th:href="@{/project/enable/} + ${project.id} + @{/} + ${user.id}" class="btn btn-secondary">Enable</a>
+                            <a th:href="@{/project/delete/} + ${project.id} + @{/} + ${user.id}" class="btn btn-danger">Delete</a>
                         </div>
                     </td>
                 </tr>

@@ -2,6 +2,7 @@
 package com.gianlucabarbaro.services;
 
 import com.gianlucabarbaro.entities.About;
+import com.gianlucabarbaro.entities.Usuario;
 import com.gianlucabarbaro.repositories.AboutRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,13 @@ public class AboutService {
     @Autowired
     private AboutRepository aboutRepository;
     
+    @Autowired
+    private UsuarioService usuarioService;
+    
     @Transactional(rollbackFor = {Exception.class})
-    public About save(String main_content, String content) throws Exception {
+    public About save(String mainContent, String content, String idUser) throws Exception {
         
-        if (main_content == null || main_content.isEmpty()) {
+        if (mainContent == null || mainContent.isEmpty()) {
             throw new Exception("Debe ingresar el texto correspondiente");
         }
         if (content == null || content.isEmpty()) {
@@ -26,16 +30,19 @@ public class AboutService {
         
         About about = new About();
         
-        about.setMain_content(main_content);
+        about.setMainContent(mainContent);
         about.setContent(content);
+        
+        Usuario user = usuarioService.findById(idUser);
+        user.setAboutme(about);
         
         return aboutRepository.save(about);
     }
     
     @Transactional(rollbackFor = {Exception.class})
-    public void modify(String id, String main_content, String content) throws Exception {
+    public void modify(String id, String mainContent, String content) throws Exception {
         
-        if (main_content == null || main_content.isEmpty()) {
+        if (mainContent == null || mainContent.isEmpty()) {
             throw new Exception("Debe ingresar el texto correspondiente");
         }
         if (content == null || content.isEmpty()) {
@@ -48,7 +55,7 @@ public class AboutService {
             
             About about = respuesta.get();
         
-            about.setMain_content(main_content);
+            about.setMainContent(mainContent);
             about.setContent(content);
             
             aboutRepository.save(about);

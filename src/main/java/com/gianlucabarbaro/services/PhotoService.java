@@ -17,14 +17,14 @@ public class PhotoService {
     private PhotoRepository photoRepository;
     
     @Transactional(rollbackFor = {Exception.class})
-    public Photo save(MultipartFile archive) {
+    public Photo save(MultipartFile file) {
 
-        if (archive != null) {
+        if (file != null) {
             try {
                 Photo photo = new Photo();
-                photo.setName(archive.getName());
-                photo.setMime(archive.getContentType());
-                photo.setContent(archive.getBytes());
+                photo.setName(file.getName());
+                photo.setMime(file.getContentType());
+                photo.setContent(file.getBytes());
               
                 return photoRepository.save(photo);
                 
@@ -36,9 +36,9 @@ public class PhotoService {
     }
     
     @Transactional(rollbackFor = {Exception.class})
-    public Photo modify(MultipartFile archivo, String id) {
+    public Photo modify(MultipartFile file, String id) {
 
-        if (archivo != null) {
+        if (file != null) {
             try {
                 Photo photo = new Photo();
                 if (id != null) {
@@ -49,9 +49,9 @@ public class PhotoService {
 
                     }
                 }
-                photo.setName(archivo.getName());
-                photo.setMime(archivo.getContentType());
-                photo.setContent(archivo.getBytes());
+                photo.setName(file.getName());
+                photo.setMime(file.getContentType());
+                photo.setContent(file.getBytes());
 
                 return photoRepository.save(photo);
                 
@@ -63,7 +63,7 @@ public class PhotoService {
     }
     
     @Transactional(readOnly = true)
-    public Photo fundById(String id) {
+    public Photo findById(String id) {
         return photoRepository.getById(id);
     }
 }

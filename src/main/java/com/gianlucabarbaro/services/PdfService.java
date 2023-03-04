@@ -2,6 +2,7 @@
 package com.gianlucabarbaro.services;
 
 import com.gianlucabarbaro.entities.Pdf;
+import com.gianlucabarbaro.entities.Usuario;
 import com.gianlucabarbaro.repositories.PdfRepository;
 import java.io.IOException;
 import java.util.Optional;
@@ -16,17 +17,23 @@ public class PdfService {
     @Autowired
     private PdfRepository pdfRepository;
     
+    @Autowired
+    private UsuarioService usuarioService;
+    
     @Transactional(rollbackFor = {Exception.class})
-    public Pdf save(MultipartFile archive) {
+    public Pdf save(MultipartFile file, String idUser) throws Exception {
 
-        if (archive != null) {
+        if (file != null) {
             try {
-                Pdf photo = new Pdf();
-                photo.setName(archive.getName());
-                photo.setMime(archive.getContentType());
-                photo.setContent(archive.getBytes());
+                Pdf pdf = new Pdf();
+                pdf.setName(file.getName());
+                pdf.setMime(file.getContentType());
+                pdf.setContent(file.getBytes());
+                
+                Usuario user = usuarioService.findById(idUser);
+                user.setPdf(pdf);
               
-                return pdfRepository.save(photo);
+                return pdfRepository.save(pdf);
                 
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -36,24 +43,24 @@ public class PdfService {
     }
     
     @Transactional(rollbackFor = {Exception.class})
-    public Pdf modify(MultipartFile archivo, String id) {
+    public Pdf modify(MultipartFile file, String id) {
 
-        if (archivo != null) {
+        if (file != null) {
             try {
-                Pdf photo = new Pdf();
+                Pdf pdf = new Pdf();
                 if (id != null) {
                     Optional<Pdf> respuesta = pdfRepository.findById(id);
 
                     if (respuesta.isPresent()) {
-                        photo = respuesta.get();
+                        pdf = respuesta.get();
 
                     }
                 }
-                photo.setName(archivo.getName());
-                photo.setMime(archivo.getContentType());
-                photo.setContent(archivo.getBytes());
+                pdf.setName(file.getName());
+                pdf.setMime(file.getContentType());
+                pdf.setContent(file.getBytes());
 
-                return pdfRepository.save(photo);
+                return pdfRepository.save(pdf);
                 
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -63,7 +70,7 @@ public class PdfService {
     }
     
     @Transactional(readOnly = true)
-    public Pdf fundById(String id) {
+    public Pdf findById(String id) {
         return pdfRepository.getById(id);
     }
     

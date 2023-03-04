@@ -27,7 +27,7 @@
                                 <a class="navbar-brand" th:href="@{/}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="navbar-brand" th:href="@{/register}">Sign up</a>
+                                <a class="navbar-brand" th:href="@{/admin}">Login</a>
                             </li>
                         </ul>
                     </div>
@@ -37,20 +37,22 @@
     </header>
 
     <div id="login">
-
         <p th:if="${error != null}" th:text="${error}" class="alert alert-danger"></p>
-        <p th:if="${success != null}" th:text="${success}" class="alert alert-success"></p>
-        <p th:if="${logout != null}" th:text="${logout}" class="alert alert-success"></p>
-
-        <h3 class="head mb-5"><strong>Login</strong></h3>
-        <form th:action="@{/logincheck}" method="POST">
+        <h3 class="head mb-5"><strong>User register</strong></h3>
+        <form th:action="@{/user/register}" method="POST">
             <div class="mb-3">
-                <input type="email" class="form-control" id="" name="email" placeholder="Your email">
+                <input type="text" class="form-control" id="" name="name" placeholder="Name">
             </div>
             <div class="mb-3">
-                <input type="password" class="form-control" id="" name="password" placeholder="Your password">
+                <input type="text" class="form-control" id="" name="last_name" placeholder="Last name">
             </div>
-            <button type="submit">Login</button>
+            <div class="mb-3">
+                <input type="email" class="form-control" id="" name="email" placeholder="Email">
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="" name="password" placeholder="Password">
+            </div>
+            <button type="submit">Save</button>
         </form>
     </div>
     
