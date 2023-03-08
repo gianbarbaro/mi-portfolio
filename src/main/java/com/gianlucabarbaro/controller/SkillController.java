@@ -61,6 +61,7 @@ public class SkillController {
     public String delete(RedirectAttributes attr, @PathVariable("id1") String id_skill, @PathVariable("id2") String id_user) throws Exception {  
         try {
             skillService.delete(id_skill);
+            attr.addFlashAttribute("success", "se elimino la skill seleccionada");
             return "redirect:/user/admin-settings/" + id_user;
         } catch (Exception e) {
             attr.addFlashAttribute("error", e.getMessage());

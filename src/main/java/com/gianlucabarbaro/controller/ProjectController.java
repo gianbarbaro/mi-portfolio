@@ -2,6 +2,7 @@
 package com.gianlucabarbaro.controller;
 
 import com.gianlucabarbaro.services.ProjectService;
+import java.net.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,9 +24,9 @@ public class ProjectController {
     private ProjectService projectService;
     
     @PostMapping("/add")
-    public String add(RedirectAttributes attr, ModelMap model, MultipartFile file, @RequestParam String project_name, @RequestParam String description, @RequestParam String id) throws Exception {
+    public String add(RedirectAttributes attr, ModelMap model, MultipartFile file, @RequestParam String project_name, @RequestParam String description, @RequestParam URL project_url,@RequestParam String id) throws Exception {
         try {
-            projectService.save(file, project_name, description, id);
+            projectService.save(file, project_name, description, project_url, id);
             attr.addFlashAttribute("success", "se añadio un nuevo proyecto");
             return "redirect:/user/admin-settings/" + id;
 

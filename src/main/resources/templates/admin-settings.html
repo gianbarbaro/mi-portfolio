@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +73,7 @@
                 <input type="hidden" th:value="${user.id}" name="id">
                 <div class="mb-3">
                   <label for="inputCV" class="form-label">PDF File</label>
-                  <input type="file" class="form-control" id="inputCV" name="file" th:if="${user.pdf != null}" th:src="${'/pdf/'} + ${user.pdf.id}">
+                  <input type="file" class="form-control" id="inputCV" name="file">
                 </div>
                 <button type="submit">Save</button>
             </form>
@@ -163,6 +166,10 @@
                                         <input type="text" class="form-control" id="" name="description">
                                     </div>
                                     <div class="mb-3">
+                                        <label for="" class="col-form-label">Project link:</label>
+                                        <input type="url" class="form-control" id="" name="project_url">
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="" class="col-form-label">Picture:</label>
                                         <input type="file" class="form-control" id="" name="file">
                                     </div>
@@ -180,7 +187,8 @@
             <thead>
                 <tr>
                     <th scope="col">Name</th>
-                    <th scope="col">Description</th>
+                    <th scope="col" >Description</th>
+                    <th scope="col">Link</th>
                     <th scope="col">Picture</th>
                     <th scope="col">Uploaded date</th>
                     <th scope="col">Active</th>
@@ -191,6 +199,7 @@
                 <tr th:each="project:${user.projects}">
                     <td th:text="${project.project_name}"></td>
                     <td th:text="${project.description}"></td>
+                    <td th:text="${project.project_url}"></td>
                     <td th:text="${project.photo.mime}"></td>
                     <td th:text="${project.uploaded_date}"></td>
                     <td th:text="${project.active}"></td>

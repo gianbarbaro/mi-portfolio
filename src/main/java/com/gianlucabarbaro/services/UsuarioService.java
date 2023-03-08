@@ -75,6 +75,11 @@ public class UsuarioService implements UserDetailsService {
         }
     }
     
+    @Transactional(readOnly = true)
+    public List<Usuario> findAll() throws Exception {
+        return usuarioRepository.findAll();
+    }
+    
     private void validar(String name, String last_name, String email, String password) throws Exception {
         if (name == null || name.trim().isEmpty()) {
             throw new Exception("Debe ingresar su nombre");

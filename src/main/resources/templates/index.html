@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,20 +55,15 @@
         <div>
             <h1><strong>Gian Luca Barbaro</strong></h1>
             <h2>Fullstack Developer</h2>
-            <a id="cv" href="CV - Gian Luca Barbaro.pdf">Descargar CV</a>
+            <a id="cv" href="CV (english) - Gian Luca Barbaro.pdf">Dowload CV</a>
         </div>
     </div>
 
     <div id="aboutme">
         <div class="block1">
             <h3><strong>About me:</strong></h3>
-            <h5>Mi Nombre es Gian Luca Barbaro, soy Full Stack Developer y estudiante de Diseño de Videojuegos.</h5>
-            <p>
-                Actualmente resido en la provincia de Misiones, Argentina. <br>
-                Este último tiempo me dediqué a aprender nuevas tecnologías, mejorando mis habilidades para así poder llevar a cabo pequeños proyectos en donde plasmar lo aprendido, 
-                buscando la manera de seguir creciendo profesionalmente y lograr hacer contribuciones valiosas en mi lugar de trabajo. <br>
-                Cuento con experiencia en la creación de websites con Java y Spring como framework de desarrollo. <br>
-            </p>
+            <h5 th:text="${user.aboutme.mainContent}"></h5>
+            <p th:text="${user.aboutme.content}"></p>
         </div>
     </div>
 
@@ -74,13 +72,7 @@
             <h3 class="head"><strong>Skills</strong></h3>
             <div>
                 <ul>
-                    <li>Java</li>
-                    <li>MySQL</li>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                    <li>Git</li>
-                    <li>Github</li>
+                    <li th:each="skill:${user.skills}" th:if="${skill.active != false}" th:text="${skill.skill_name}"></li>
                 </ul>
             </div>
         </div>
@@ -89,11 +81,15 @@
     <div id="projects">
         <div class="block1">
             <h3 class="head"><strong>Projects</strong></h3>
-            <div class="content">
-                <img src="project-prueba.jpg" alt="loading project...">
+            <div th:if="${user.projects.isEmpty()}" id="emptyprojects">
+                <h5>more comming soon...</h5>
+            </div>
+            <div th:each="project:${user.projects}" th:if="${project.active != false}" class="content">
+                <img th:src="${'/photo/'} + ${project.photo.id}" alt="loading project...">
                 <div>
-                    <h4 class="text-center m-5">Nombre del proyecto</h4>
-                    <p class="m-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium eius cumque ut soluta veritatis ratione aspernatur aliquid recusandae, voluptates incidunt, corrupti fuga dolor, voluptate aut porro minima. Vel, quo sequi?</p>
+                    <h4 th:text="${project.project_name}" class="text-center m-5"></h4>
+                    <p th:text="${project.description}" class="m-5"></p>
+                    <a th:href="${project.project_url}" class="m-5">web site</a>
                 </div>
             </div>
         </div>
@@ -102,12 +98,15 @@
     <div id="contact">
         <div class="block2">
             <h3 class="head mb-5"><strong>Contact me</strong></h3>
-            <form action="">
+            <form th:action="@{/mailsender}" method="POST">
                 <div class="mb-3">
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Your email">
+                    <input type="email" class="form-control" id="" placeholder="Your email" name="email">
                 </div>
                 <div class="mb-3">
-                    <textarea id="exampleFormControlTextarea1" placeholder="Your message"></textarea>
+                    <input type="text" class="form-control" id="" placeholder="Subject" name="subject">
+                </div>
+                <div class="mb-3">
+                    <textarea id="" placeholder="Your message" name="text"></textarea>
                 </div>
                 <button type="submit">Send</button>
             </form>

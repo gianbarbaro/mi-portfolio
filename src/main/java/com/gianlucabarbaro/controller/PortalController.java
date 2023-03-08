@@ -1,9 +1,15 @@
 
 package com.gianlucabarbaro.controller;
 
+import com.gianlucabarbaro.entities.Usuario;
+import com.gianlucabarbaro.services.NotificationService;
+import com.gianlucabarbaro.services.UsuarioService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -11,8 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class PortalController {
     
+    @Autowired
+    private UsuarioService usuarioService;
+    
+    @Autowired
+    private NotificationService notificationService;
+    
     @GetMapping("/")
-    public String index(ModelMap model) {
+    public String index(ModelMap model) throws Exception {
+        List<Usuario> users = usuarioService.findAll();
+        model.put("user", users.get(0));
         return "index.html";
     }
     
@@ -32,6 +46,17 @@ public class PortalController {
     @GetMapping("/register")
     public String register(ModelMap model) {
         return "register.html";
+    }
+    
+    @PostMapping("/mailsender")
+    public String sendMail(@RequestParam String email, @RequestParam String subject, @RequestParam String text) {
+        try {
+            notificationService.send(email, subject, text);
+            return "redirect:/";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "redirect:/";
+        }
     }
     
 }

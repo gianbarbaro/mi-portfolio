@@ -2,6 +2,7 @@
 package com.gianlucabarbaro.entities;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,8 @@ public class Project implements Serializable {
     @JoinColumn(name = "project_photo")
     private Photo photo;
     
+    private URL project_url;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date uploaded_date;
     
@@ -37,11 +40,12 @@ public class Project implements Serializable {
     public Project() {
     }
 
-    public Project(String id, String project_name, String description, Photo photo, Date uploaded_date, Boolean active) {
+    public Project(String id, String project_name, String description, Photo photo, URL project_url, Date uploaded_date, Boolean active) {
         this.id = id;
         this.project_name = project_name;
         this.description = description;
         this.photo = photo;
+        this.project_url = project_url;
         this.uploaded_date = uploaded_date;
         this.active = active;
     }
@@ -78,6 +82,14 @@ public class Project implements Serializable {
         this.photo = photo;
     }
 
+    public URL getProject_url() {
+        return project_url;
+    }
+
+    public void setProject_url(URL project_url) {
+        this.project_url = project_url;
+    }
+
     public Date getUploaded_date() {
         return uploaded_date;
     }
@@ -96,7 +108,7 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "Project{" + "id=" + id + ", project_name=" + project_name + ", description=" + description + ", photo=" + photo + ", uploaded_date=" + uploaded_date + ", active=" + active + '}';
+        return "Project{" + "id=" + id + ", project_name=" + project_name + ", description=" + description + ", photo=" + photo + ", project_url=" + project_url + ", uploaded_date=" + uploaded_date + ", active=" + active + '}';
     }
     
     
